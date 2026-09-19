@@ -35,11 +35,17 @@ function initLeafletMap() {
     attributionControl: false
   });
 
-  // High-contrast CartoDB Dark Matter tiles
-  L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
-    subdomains: "abcd",
-    maxZoom: 19
+  // Keyless Enterprise Cyber Basemap (Esri World Dark Gray Base & Reference - Zero API Key, Zero Watermark)
+  L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
+    attribution: "Esri, © OpenStreetMap",
+    maxZoom: 16
   }).addTo(leafletMap);
+
+  L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}", {
+    maxZoom: 16,
+    opacity: 0.85
+  }).addTo(leafletMap);
+
 }
 
 function initRadarChart() {
