@@ -1,0 +1,30 @@
+From: "Microsoft Security Alert" <alerts@micros0ft-security.com>
+To: target.analyst@cyberdefense.in
+Subject: URGENT: Your Microsoft 365 Account Will Be Disabled Within 24 Hours
+Date: Fri, 18 Sep 2026 09:14:22 +0000
+Message-ID: <20260918.091422.4812@micros0ft-security.com>
+Return-Path: <bounces@dropzone-relay.ru>
+Reply-To: credential-collector@anonymized-inbox.to
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Received-SPF: fail (domain of dropzone-relay.ru does not designate 185.220.101.5 as permitted sender)
+Authentication-Results: mx.cyberdefense.in; spf=fail; dkim=fail header.d=micros0ft-security.com; dmarc=fail action=quarantine
+Received: from mail-relay1.tor-exit.net ([185.220.101.5])
+    by gateway02.cyberdefense.in with ESMTPS id 92AB4812C
+    for <target.analyst@cyberdefense.in>; Fri, 18 Sep 2026 09:14:24 +0000
+Received: from localhost ([127.0.0.1])
+    by mail-relay1.tor-exit.net with ESMTP id 813CD712;
+    Fri, 18 Sep 2026 09:14:20 +0000
+
+Dear User,
+
+We have detected unauthorized login attempts to your corporate account from an unknown IP address.
+Your account access is currently restricted. Immediate action is required to avoid permanent account suspension within 24 hours.
+
+Please verify password and confirm OTP immediately:
+https://micros0ft-security.com/login/auth-session
+
+If you fail to verify, your mailbox will be terminated.
+
+Security Team
+Microsoft 365 Operations

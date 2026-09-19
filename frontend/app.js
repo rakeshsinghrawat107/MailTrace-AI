@@ -1,7 +1,7 @@
 /**
- * MailTrace AI - SOC Analyst Frontend Application
- * Interacts with FastAPI backend, renders interactive Leaflet hop trace maps,
- * Chart.js 32D radar, de-obfuscation inspector, and Section 63 BSA certification.
+ * MailTrace AI - Modern Enterprise SOC Forensics Controller
+ * Implements accessible keyboard interactions, tab state synchronization,
+ * dynamic 32D radar rendering, interactive MTA hop tracing, and Section 63 BSA validation.
  */
 
 let currentCase = null;
@@ -10,7 +10,7 @@ let mapMarkers = [];
 let mapPolyline = null;
 let radarChart = null;
 
-// Initialize when DOM is ready
+// Initialize on DOM ready
 document.addEventListener("DOMContentLoaded", () => {
   if (window.lucide) {
     window.lucide.createIcons();
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initRadarChart();
   setupEventListeners();
 
-  // Load default sample (Spear Phishing)
+  // Load default forensic scenario (Spear Phishing)
   loadSampleCase("spear_phishing");
 });
 
@@ -35,7 +35,7 @@ function initLeafletMap() {
     attributionControl: false
   });
 
-  // Dark cyber map tiles (CartoDB Dark Matter)
+  // High-contrast CartoDB Dark Matter tiles
   L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
     subdomains: "abcd",
     maxZoom: 19
@@ -60,12 +60,13 @@ function initRadarChart() {
       datasets: [{
         label: "Risk Exposure Index",
         data: [0, 0, 0, 0, 0, 0],
-        backgroundColor: "rgba(6, 182, 212, 0.25)",
+        backgroundColor: "rgba(6, 182, 212, 0.22)",
         borderColor: "rgba(6, 182, 212, 0.9)",
         pointBackgroundColor: "#38bdf8",
         pointBorderColor: "#ffffff",
         pointHoverBackgroundColor: "#ffffff",
         pointHoverBorderColor: "#38bdf8",
+        pointRadius: 3,
         borderWidth: 2
       }]
     },
@@ -74,11 +75,11 @@ function initRadarChart() {
       maintainAspectRatio: false,
       scales: {
         r: {
-          angleLines: { color: "rgba(255, 255, 255, 0.1)" },
+          angleLines: { color: "rgba(255, 255, 255, 0.12)" },
           grid: { color: "rgba(255, 255, 255, 0.08)" },
           pointLabels: {
             color: "#94a3b8",
-            font: { family: '"Plus Jakarta Sans"', size: 10, weight: 600 }
+            font: { family: '"Inter", sans-serif', size: 10, weight: 600 }
           },
           ticks: {
             display: false,
@@ -98,7 +99,7 @@ function initRadarChart() {
 }
 
 function setupEventListeners() {
-  // Sample buttons
+  // Sample case selection buttons
   document.querySelectorAll(".sample-btn").forEach(btn => {
     btn.addEventListener("click", () => {
       const sampleKey = btn.getAttribute("data-sample");
@@ -106,17 +107,17 @@ function setupEventListeners() {
     });
   });
 
-  // Tab navigation
+  // Accessible Pill Tab Navigation
   document.querySelectorAll(".tab-nav-btn").forEach(btn => {
     btn.addEventListener("click", () => {
       const targetId = btn.getAttribute("data-target");
 
       document.querySelectorAll(".tab-nav-btn").forEach(b => {
-        b.classList.remove("active", "text-cyan-400", "border-cyan-400");
-        b.classList.add("text-slate-400", "border-transparent");
+        b.classList.remove("active");
+        b.setAttribute("aria-selected", "false");
       });
-      btn.classList.add("active", "text-cyan-400", "border-cyan-400");
-      btn.classList.remove("text-slate-400", "border-transparent");
+      btn.classList.add("active");
+      btn.setAttribute("aria-selected", "true");
 
       document.querySelectorAll(".tab-panel").forEach(panel => {
         panel.classList.add("hidden");
@@ -131,6 +132,25 @@ function setupEventListeners() {
     });
   });
 
+  // Keyboard navigation & accessibility shortcuts
+  document.addEventListener("keydown", (e) => {
+    // Close modal on Escape
+    if (e.key === "Escape") {
+      const certModal = document.getElementById("cert-modal");
+      if (certModal && !certModal.classList.contains("hidden")) {
+        certModal.classList.add("hidden");
+      }
+    }
+
+    // Quick scenario hotkeys 1-4 when not typing in form inputs
+    if (!["INPUT", "TEXTAREA"].includes(document.activeElement.tagName)) {
+      if (e.key === "1") loadSampleCase("spear_phishing");
+      else if (e.key === "2") loadSampleCase("bec_wire_fraud");
+      else if (e.key === "3") loadSampleCase("quishing_invoice");
+      else if (e.key === "4") loadSampleCase("legitimate_gov");
+    }
+  });
+
   // File upload input
   const fileInput = document.getElementById("eml-file-input");
   if (fileInput) {
@@ -141,7 +161,7 @@ function setupEventListeners() {
     });
   }
 
-  // Certificate modal
+  // Section 63 BSA Modal listeners
   const btnOpenCert = document.getElementById("btn-open-certificate");
   const certModal = document.getElementById("cert-modal");
   const btnCloseModal = document.getElementById("btn-close-modal");
@@ -154,19 +174,67 @@ function setupEventListeners() {
   if (btnCloseModal && certModal) {
     btnCloseModal.addEventListener("click", () => certModal.classList.add("hidden"));
   }
+  if (certModal) {
+    // Close when clicking overlay backdrop
+    certModal.addEventListener("click", (e) => {
+      if (e.target === certModal) {
+        certModal.classList.add("hidden");
+      }
+    });
+  }
+
   if (btnCopyCert) {
     btnCopyCert.addEventListener("click", () => {
       const text = document.getElementById("cert-raw-text").innerText;
-      navigator.clipboard.writeText(text);
-      btnCopyCert.innerText = "Copied!";
-      setTimeout(() => { btnCopyCert.innerText = "Copy Text"; }, 2000);
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btnCopyCert.innerText;
+        btnCopyCert.innerText = "Copied!";
+        btnCopyCert.classList.add("text-emerald-300");
+        setTimeout(() => {
+          btnCopyCert.innerText = originalText;
+          btnCopyCert.classList.remove("text-emerald-300");
+        }, 2000);
+      });
     });
   }
+
   if (btnPrintCert) {
     btnPrintCert.addEventListener("click", () => window.print());
   }
 
-  // Export IoCs
+  // Copy SHA-256 Hash Button
+  const btnCopyHash = document.getElementById("btn-copy-hash");
+  if (btnCopyHash) {
+    btnCopyHash.addEventListener("click", () => {
+      const hashText = document.getElementById("meta-sha256").innerText;
+      if (hashText && hashText !== "Calculating...") {
+        navigator.clipboard.writeText(hashText).then(() => {
+          btnCopyHash.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>`;
+          if (window.lucide) window.lucide.createIcons();
+          setTimeout(() => {
+            btnCopyHash.innerHTML = `<i data-lucide="copy" class="w-3.5 h-3.5"></i>`;
+            if (window.lucide) window.lucide.createIcons();
+          }, 2000);
+        });
+      }
+    });
+  }
+
+  // Header quick export actions
+  const btnHeaderPdf = document.getElementById("btn-header-pdf");
+  const btnHeaderJson = document.getElementById("btn-header-json");
+  if (btnHeaderPdf) {
+    btnHeaderPdf.addEventListener("click", () => window.print());
+  }
+  if (btnHeaderJson) {
+    btnHeaderJson.addEventListener("click", () => {
+      if (currentCase) {
+        window.open(`/api/evidence/case/${currentCase.case_id}`, "_blank");
+      }
+    });
+  }
+
+  // IoC Export buttons
   const btnCsv = document.getElementById("btn-export-csv");
   const btnJson = document.getElementById("btn-export-json");
   if (btnCsv) {
@@ -208,7 +276,7 @@ async function uploadEmlFile(file) {
 function renderCaseData(data) {
   currentCase = data;
 
-  // 1. Metadata strip
+  // 1. Evidence Metadata Strip
   document.getElementById("meta-case-id").innerText = `CASE-${data.case_id}`;
   document.getElementById("meta-sha256").innerText = data.evidence_sha256;
   document.getElementById("meta-sha256").title = data.evidence_sha256;
@@ -228,19 +296,19 @@ function renderCaseData(data) {
 
   if (score >= 75) {
     circle.setAttribute("class", "text-red-500 fill-none stroke-round transition-all duration-1000");
-    badgeTier.className = "px-2.5 py-1 text-xs font-bold font-mono uppercase rounded-full bg-red-950 text-red-400 border border-red-800";
+    badgeTier.className = "px-2.5 py-0.5 text-[11px] font-bold font-mono uppercase rounded-full bg-red-950 text-red-400 border border-red-800";
   } else if (score >= 50) {
     circle.setAttribute("class", "text-orange-500 fill-none stroke-round transition-all duration-1000");
-    badgeTier.className = "px-2.5 py-1 text-xs font-bold font-mono uppercase rounded-full bg-orange-950 text-orange-400 border border-orange-800";
+    badgeTier.className = "px-2.5 py-0.5 text-[11px] font-bold font-mono uppercase rounded-full bg-orange-950 text-orange-400 border border-orange-800";
   } else if (score >= 25) {
     circle.setAttribute("class", "text-amber-500 fill-none stroke-round transition-all duration-1000");
-    badgeTier.className = "px-2.5 py-1 text-xs font-bold font-mono uppercase rounded-full bg-amber-950 text-amber-400 border border-amber-800";
+    badgeTier.className = "px-2.5 py-0.5 text-[11px] font-bold font-mono uppercase rounded-full bg-amber-950 text-amber-400 border border-amber-800";
   } else {
     circle.setAttribute("class", "text-emerald-500 fill-none stroke-round transition-all duration-1000");
-    badgeTier.className = "px-2.5 py-1 text-xs font-bold font-mono uppercase rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800";
+    badgeTier.className = "px-2.5 py-0.5 text-[11px] font-bold font-mono uppercase rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800";
   }
 
-  // Mini Badges
+  // Mini Protocol & Evasion Badges
   const miniAuth = document.getElementById("mini-auth-status");
   miniAuth.innerText = data.protocols.overall_authentication_pass ? "PASS" : "FAIL";
   miniAuth.className = `font-mono text-xs font-bold ${data.protocols.overall_authentication_pass ? "text-emerald-400" : "text-red-400"}`;
@@ -251,7 +319,7 @@ function renderCaseData(data) {
 
   const miniQuish = document.getElementById("mini-quish-status");
   miniQuish.innerText = data.quishing.is_quishing_detected ? "DETECTED" : "NONE";
-  miniQuish.className = `font-mono text-xs font-bold ${data.quishing.is_quishing_detected ? "text-red-400" : "text-slate-400"}`;
+  miniQuish.className = `font-mono text-xs font-bold ${data.quishing.is_quishing_detected ? "text-red-400" : "text-muted-foreground"}`;
 
   // 3. Risk Meters & Radar
   const m = data.threat_scoring.metrics;
@@ -273,7 +341,7 @@ function renderCaseData(data) {
     radarChart.update();
   }
 
-  // 4. Populate Hop Map & Table
+  // 4. Populate Hop Map & Timeline Table
   renderHopMap(data.hops);
 
   // 5. De-Obfuscation Inspector
@@ -327,7 +395,7 @@ function renderHopMap(hops) {
   const tableBody = document.getElementById("hops-table-body");
   if (tableBody) tableBody.innerHTML = "";
 
-  hops.forEach((hop, idx) => {
+  hops.forEach((hop) => {
     const lat = hop.latitude;
     const lon = hop.longitude;
     const isOrigin = hop.is_originating_hop;
@@ -359,7 +427,7 @@ function renderHopMap(hops) {
     // Append table row
     if (tableBody) {
       const tr = document.createElement("tr");
-      tr.className = "hover:bg-cyber-850/60 transition-colors";
+      tr.className = "hover:bg-muted/40 transition-colors";
       tr.innerHTML = `
         <td class="p-3 font-bold ${isOrigin ? 'text-red-400' : 'text-cyan-400'}">#${hop.hop_sequence}</td>
         <td class="p-3 max-w-xs truncate" title="${hop.from_mta}">${hop.from_mta}</td>
@@ -367,7 +435,7 @@ function renderHopMap(hops) {
         <td class="p-3 font-semibold ${isOrigin ? 'text-amber-300' : 'text-slate-300'}">${hop.relay_ip || 'N/A'}</td>
         <td class="p-3">${hop.city || '—'}, ${hop.country || '—'} (${hop.isp || 'Internal'})</td>
         <td class="p-3">
-          <span class="px-1.5 py-0.5 rounded text-[10px] ${hop.is_anonymizer ? 'bg-red-950 text-red-300 border border-red-800' : 'bg-cyber-800 text-slate-300'}">
+          <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold ${hop.is_anonymizer ? 'bg-red-950 text-red-300 border border-red-800' : 'bg-cyber-800 text-slate-300 border border-border'}">
             ${hop.infra_type}
           </span>
         </td>
@@ -381,7 +449,7 @@ function renderHopMap(hops) {
     mapPolyline = L.polyline(latLngs, {
       color: "#06b6d4",
       weight: 3,
-      opacity: 0.8,
+      opacity: 0.85,
       dashArray: "6, 8"
     }).addTo(leafletMap);
     leafletMap.fitBounds(mapPolyline.getBounds(), { padding: [40, 40] });
@@ -403,15 +471,15 @@ function renderDeobfuscation(deobf, rawBody) {
   const lookalike = deobf.domain_lookalike;
   if (lookalike && lookalike.is_lookalike) {
     const d = document.createElement("div");
-    d.className = "p-2.5 rounded bg-red-950/40 border border-red-900 flex items-center justify-between";
+    d.className = "p-3 rounded-lg bg-red-950/40 border border-red-900 flex items-center justify-between";
     d.innerHTML = `
       <div>
         <span class="font-bold text-red-400">Deceptive Lookalike Domain Identified:</span>
-        <span class="text-white ml-2 font-mono">${lookalike.original_domain}</span>
-        <span class="text-slate-400 ml-2">mimics target brand</span>
+        <span class="text-white ml-2 font-mono font-semibold">${lookalike.original_domain}</span>
+        <span class="text-muted-foreground ml-2">mimics target brand</span>
         <span class="text-cyan-300 ml-1 font-bold font-mono">${lookalike.closest_brand}</span>
       </div>
-      <span class="font-mono text-xs text-red-300 px-2 py-0.5 rounded bg-red-900">Edit Dist: ${lookalike.edit_distance}</span>
+      <span class="font-mono text-xs text-red-300 px-2 py-0.5 rounded-full bg-red-900 border border-red-700">Edit Dist: ${lookalike.edit_distance}</span>
     `;
     container.appendChild(d);
   }
@@ -419,67 +487,67 @@ function renderDeobfuscation(deobf, rawBody) {
   if (deobf.homoglyphs_detected.length > 0) {
     deobf.homoglyphs_detected.forEach(h => {
       const item = document.createElement("div");
-      item.className = "p-2 rounded bg-cyber-850 border border-cyber-800 flex items-center justify-between";
+      item.className = "p-2.5 rounded-lg bg-cyber-850 border border-border flex items-center justify-between";
       item.innerHTML = `
         <div class="flex items-center space-x-2">
-          <span class="font-mono text-amber-400 font-bold text-sm bg-cyber-900 px-2 py-0.5 rounded">'${h.char}'</span>
-          <span class="text-slate-400">Normalized to Latin:</span>
-          <span class="font-mono text-cyan-300 font-bold text-sm bg-cyber-900 px-2 py-0.5 rounded">'${h.replacement}'</span>
-          <span class="text-slate-500 font-mono">(${h.unicode} - ${h.name})</span>
+          <span class="font-mono text-amber-400 font-bold text-sm bg-cyber-900 px-2 py-0.5 rounded border border-border">'${h.char}'</span>
+          <span class="text-muted-foreground text-xs">Normalized to Latin:</span>
+          <span class="font-mono text-cyan-300 font-bold text-sm bg-cyber-900 px-2 py-0.5 rounded border border-border">'${h.replacement}'</span>
+          <span class="text-slate-500 font-mono text-xs">(${h.unicode} - ${h.name})</span>
         </div>
-        <span class="text-[10px] text-slate-400">Index @ ${h.position}</span>
+        <span class="text-[11px] text-muted-foreground font-mono">Index @ ${h.position}</span>
       `;
       container.appendChild(item);
     });
   } else if (!lookalike?.is_lookalike) {
-    container.innerHTML = `<span class="text-slate-400 italic">No Unicode homoglyphs or zero-width evasions identified in this sample.</span>`;
+    container.innerHTML = `<span class="text-muted-foreground italic text-xs">No Unicode homoglyphs or zero-width evasions identified in this sample.</span>`;
   }
 }
 
 function renderProtocols(proto, headers) {
-  // SPF
+  // SPF Card
   const spfBadge = document.getElementById("proto-spf-badge");
   const spfCard = document.getElementById("card-spf");
   spfBadge.innerText = proto.spf.status.toUpperCase();
   if (proto.spf.status === "pass") {
-    spfBadge.className = "px-2 py-0.5 font-mono text-xs font-bold rounded bg-emerald-900 text-emerald-200";
+    spfBadge.className = "px-2.5 py-0.5 font-mono text-xs font-bold rounded-full bg-emerald-900 text-emerald-200 border border-emerald-700";
     spfCard.className = "p-4 rounded-lg border bg-cyber-850 border-emerald-900/80";
   } else {
-    spfBadge.className = "px-2 py-0.5 font-mono text-xs font-bold rounded bg-red-900 text-red-200";
+    spfBadge.className = "px-2.5 py-0.5 font-mono text-xs font-bold rounded-full bg-red-900 text-red-200 border border-red-700";
     spfCard.className = "p-4 rounded-lg border bg-cyber-850 border-red-900/80";
   }
 
-  // DKIM
+  // DKIM Card
   const dkimBadge = document.getElementById("proto-dkim-badge");
   const dkimCard = document.getElementById("card-dkim");
   dkimBadge.innerText = proto.dkim.status.toUpperCase();
   if (proto.dkim.status === "pass") {
-    dkimBadge.className = "px-2 py-0.5 font-mono text-xs font-bold rounded bg-emerald-900 text-emerald-200";
+    dkimBadge.className = "px-2.5 py-0.5 font-mono text-xs font-bold rounded-full bg-emerald-900 text-emerald-200 border border-emerald-700";
     dkimCard.className = "p-4 rounded-lg border bg-cyber-850 border-emerald-900/80";
   } else {
-    dkimBadge.className = "px-2 py-0.5 font-mono text-xs font-bold rounded bg-red-900 text-red-200";
+    dkimBadge.className = "px-2.5 py-0.5 font-mono text-xs font-bold rounded-full bg-red-900 text-red-200 border border-red-700";
     dkimCard.className = "p-4 rounded-lg border bg-cyber-850 border-red-900/80";
   }
 
-  // DMARC
+  // DMARC Card
   const dmarcBadge = document.getElementById("proto-dmarc-badge");
   const dmarcCard = document.getElementById("card-dmarc");
   dmarcBadge.innerText = proto.dmarc.status.toUpperCase();
   if (proto.dmarc.status === "pass") {
-    dmarcBadge.className = "px-2 py-0.5 font-mono text-xs font-bold rounded bg-emerald-900 text-emerald-200";
+    dmarcBadge.className = "px-2.5 py-0.5 font-mono text-xs font-bold rounded-full bg-emerald-900 text-emerald-200 border border-emerald-700";
     dmarcCard.className = "p-4 rounded-lg border bg-cyber-850 border-emerald-900/80";
   } else {
-    dmarcBadge.className = "px-2 py-0.5 font-mono text-xs font-bold rounded bg-red-900 text-red-200";
+    dmarcBadge.className = "px-2.5 py-0.5 font-mono text-xs font-bold rounded-full bg-red-900 text-red-200 border border-red-700";
     dmarcCard.className = "p-4 rounded-lg border bg-cyber-850 border-red-900/80";
   }
 
-  // Raw Headers
+  // Raw Headers Inspector
   const listContainer = document.getElementById("headers-key-value-list");
   listContainer.innerHTML = "";
   Object.entries(headers).forEach(([k, v]) => {
     const row = document.createElement("div");
-    row.className = "flex py-1 border-b border-cyber-800 last:border-0";
-    row.innerHTML = `<span class="text-cyan-400 font-bold w-36 shrink-0">${k}:</span><span class="text-slate-300 break-all">${v}</span>`;
+    row.className = "flex py-1.5 border-b border-border last:border-0 items-start";
+    row.innerHTML = `<span class="text-cyan-400 font-bold w-40 shrink-0 select-all">${k}:</span><span class="text-slate-300 break-all select-all font-mono">${v}</span>`;
     listContainer.appendChild(row);
   });
 }
@@ -491,9 +559,9 @@ function renderIoCs(iocs) {
 
   iocs.forEach(ioc => {
     const tr = document.createElement("tr");
-    tr.className = "hover:bg-cyber-850/60 transition-colors";
+    tr.className = "hover:bg-muted/40 transition-colors";
 
-    let riskBadge = "bg-slate-800 text-slate-300";
+    let riskBadge = "bg-cyber-800 text-slate-300 border border-border";
     if (ioc.risk === "Critical") riskBadge = "bg-red-950 text-red-300 border border-red-800";
     else if (ioc.risk === "High") riskBadge = "bg-orange-950 text-orange-300 border border-orange-800";
     else if (ioc.risk === "Medium") riskBadge = "bg-amber-950 text-amber-300 border border-amber-800";
@@ -502,8 +570,8 @@ function renderIoCs(iocs) {
     tr.innerHTML = `
       <td class="p-3 font-bold text-cyan-400">${ioc.type}</td>
       <td class="p-3 font-semibold select-all text-slate-200">${ioc.value}</td>
-      <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold ${riskBadge}">${ioc.risk}</span></td>
-      <td class="p-3 text-slate-400">${ioc.category}</td>
+      <td class="p-3"><span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${riskBadge}">${ioc.risk}</span></td>
+      <td class="p-3 text-muted-foreground">${ioc.category}</td>
       <td class="p-3 text-slate-300">${ioc.context}</td>
     `;
     tbody.appendChild(tr);
@@ -515,19 +583,19 @@ function renderFindings(findings) {
   container.innerHTML = "";
 
   if (!findings || findings.length === 0) {
-    container.innerHTML = `<div class="p-4 rounded bg-cyber-850 text-slate-400 text-xs italic">No suspicious adversarial findings detected in this record.</div>`;
+    container.innerHTML = `<div class="p-4 rounded-lg bg-cyber-850 text-muted-foreground text-xs italic border border-border">No suspicious adversarial findings detected in this record.</div>`;
     return;
   }
 
   findings.forEach(f => {
     const card = document.createElement("div");
-    card.className = "p-3.5 rounded-lg bg-cyber-850 border border-cyber-700/80 flex items-start space-x-3";
+    card.className = "p-4 rounded-lg bg-cyber-850 border border-border flex items-start space-x-3.5 hover:border-slate-700 transition-colors";
     card.innerHTML = `
-      <span class="px-2.5 py-1 rounded bg-cyan-950 text-cyan-400 border border-cyan-800 font-mono text-xs font-bold shrink-0">
+      <span class="px-2.5 py-1 rounded-md bg-cyan-950 text-cyan-300 border border-cyan-800/80 font-mono text-xs font-bold shrink-0">
         ${f.id}
       </span>
       <div>
-        <h4 class="text-xs font-bold text-white mb-0.5">${f.category}</h4>
+        <h4 class="text-xs font-bold text-white mb-1">${f.category}</h4>
         <p class="text-xs text-slate-300 leading-relaxed">${f.description}</p>
       </div>
     `;
@@ -551,7 +619,10 @@ async function openCertificateModal() {
     if (!res.ok) throw new Error(`Certificate request failed HTTP ${res.status}`);
     const cert = await res.json();
     document.getElementById("cert-raw-text").innerText = cert.certificate_text;
-    document.getElementById("cert-modal").classList.remove("hidden");
+    const certModal = document.getElementById("cert-modal");
+    certModal.classList.remove("hidden");
+    // Accessibility focus management
+    certModal.focus();
   } catch (err) {
     console.error("Error generating legal certificate:", err);
     alert("Could not generate Section 63 BSA certificate.");

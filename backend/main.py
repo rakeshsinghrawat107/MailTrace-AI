@@ -316,3 +316,12 @@ def export_iocs(case_id: str, format: str = "json"):
         )
 
     return {"case_id": case_id, "ioc_count": len(iocs), "iocs": iocs}
+
+
+@app.get("/api/evidence/case/{case_id}")
+def get_case_analysis(case_id: str):
+    """Returns full forensic case analysis data."""
+    if case_id not in CASE_CACHE:
+        raise HTTPException(status_code=404, detail="Case ID not found.")
+    return CASE_CACHE[case_id]
+
