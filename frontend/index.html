@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MailTrace.AI — Enterprise Email Forensics & Statutory Evidence Vault</title>
+  <meta name="description" content="Autonomous Zero-API-Key Email Threat Intelligence, Adversarial De-Obfuscation & Section 63 BSA 2023 Certification Platform">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+</head>
+<body>
+
+  <!-- 1. Header Bar -->
+  <header class="soc-header">
+    <div class="brand-badge">
+      <i data-lucide="shield-alert" style="color: var(--primary); width: 20px; height: 20px;"></i>
+      <h1 class="brand-title">MailTrace<span>.AI</span></h1>
+      <div class="status-pill">
+        <span class="pulse-dot"></span>
+        <span>v3.1.0 ZERO-API-KEY AUTONOMOUS</span>
+      </div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 0.75rem;">
+      <span style="font-size: 11px; color: var(--muted-foreground); display: flex; align-items: center; gap: 0.35rem;">
+        <i data-lucide="award" style="width: 14px; height: 14px; color: #38bdf8;"></i>
+        Sec 63 BSA 2023 Certified
+      </span>
+      <div style="height: 16px; width: 1px; background: var(--border);"></div>
+      <a href="/api/docs" target="_blank" class="btn btn-outline" style="text-decoration: none; font-size: 11px; height: 28px;">
+        <i data-lucide="terminal" style="width: 13px; height: 13px;"></i>
+        REST Docs
+      </a>
+    </div>
+  </header>
+
+  <!-- 2. Action Control Bar -->
+  <div class="control-bar">
+    <div class="control-left">
+      <label for="sample-select" style="font-size: 11px; font-weight: 600; color: var(--muted-foreground);">EVIDENCE SOURCE:</label>
+      <select id="sample-select" class="select-input">
+        <option value="" disabled selected>Loading real samples from dataset...</option>
+      </select>
+      <button id="btn-load-sample" class="btn btn-secondary">
+        <i data-lucide="play" style="width: 14px; height: 14px;"></i>
+        Inspect Sample
+      </button>
+      <input type="file" id="file-upload" accept=".eml,.msg" style="display: none;">
+      <button id="btn-trigger-upload" class="btn btn-primary">
+        <i data-lucide="upload-cloud" style="width: 14px; height: 14px;"></i>
+        Upload .EML Evidence
+      </button>
+    </div>
+    <div class="control-right">
+      <button id="btn-open-cert" class="btn btn-secondary">
+        <i data-lucide="file-check" style="width: 14px; height: 14px; color: #38bdf8;"></i>
+        BSA Sec 63 Cert
+      </button>
+      <button id="btn-export-pdf" class="btn btn-secondary">
+        <i data-lucide="download" style="width: 14px; height: 14px;"></i>
+        Export Dossier PDF
+      </button>
+      <button id="btn-export-iocs" class="btn btn-outline">
+        <i data-lucide="share-2" style="width: 14px; height: 14px;"></i>
+        Export IoCs
+      </button>
+    </div>
+  </div>
+
+  <!-- 3. Main SOC Grid -->
+  <main class="soc-workspace">
+    
+    <!-- LEFT COLUMN: Threat Score, Sub-Metrics & Case Metadata -->
+    <aside style="display: flex; flex-direction: column; gap: 1.25rem;">
+      
+      <!-- Card 1: Threat Gauge -->
+      <div class="ui-card">
+        <div class="ui-card-header">
+          <span class="ui-card-title">
+            <i data-lucide="gauge" style="width: 15px; height: 15px; color: var(--primary);"></i>
+            32D COMPOSITE FRAUD SCORE
+          </span>
+          <span id="case-id-badge" style="font-size: 10px; font-family: monospace; color: var(--muted-foreground);">CASE-PENDING</span>
+        </div>
+        <div class="ui-card-content">
+          <div class="threat-meter-container">
+            <svg class="gauge-svg" viewBox="0 0 120 120">
+              <circle class="gauge-bg" cx="60" cy="60" r="50"></circle>
+              <circle id="gauge-bar" class="gauge-progress" cx="60" cy="60" r="50" stroke="#06b6d4" stroke-dasharray="314.159" stroke-dashoffset="314.159"></circle>
+              <text id="gauge-val" class="gauge-text-val" x="60" y="58">0.0</text>
+              <text class="gauge-text-lbl" x="60" y="76">INDEX / 100</text>
+            </svg>
+            <div id="risk-tier-badge" class="tier-badge chip-info">AWAITING INGESTION</div>
+          </div>
+
+          <!-- Subscores -->
+          <div class="subscore-group">
+            <div class="subscore-row">
+              <div class="subscore-labels">
+                <span>Protocol Authentication</span>
+                <span id="score-proto">0.0%</span>
+              </div>
+              <div class="subscore-bar-bg"><div id="bar-proto" class="subscore-bar-fill" style="width: 0%; background: #06b6d4;"></div></div>
+            </div>
+            <div class="subscore-row">
+              <div class="subscore-labels">
+                <span>Identity Alignment (BEC)</span>
+                <span id="score-align">0.0%</span>
+              </div>
+              <div class="subscore-bar-bg"><div id="bar-align" class="subscore-bar-fill" style="width: 0%; background: #3b82f6;"></div></div>
+            </div>
+            <div class="subscore-row">
+              <div class="subscore-labels">
+                <span>Adversarial Deobfuscation</span>
+                <span id="score-deobf">0.0%</span>
+              </div>
+              <div class="subscore-bar-bg"><div id="bar-deobf" class="subscore-bar-fill" style="width: 0%; background: #f97316;"></div></div>
+            </div>
+            <div class="subscore-row">
+              <div class="subscore-labels">
+                <span>Quishing / Optical QR</span>
+                <span id="score-quish">0.0%</span>
+              </div>
+              <div class="subscore-bar-bg"><div id="bar-quish" class="subscore-bar-fill" style="width: 0%; background: #ec4899;"></div></div>
+            </div>
+            <div class="subscore-row">
+              <div class="subscore-labels">
+                <span>Network Transit / Tor</span>
+                <span id="score-net">0.0%</span>
+              </div>
+              <div class="subscore-bar-bg"><div id="bar-net" class="subscore-bar-fill" style="width: 0%; background: #ef4444;"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Cryptographic Custody & RFC 5322 Digest -->
+      <div class="ui-card">
+        <div class="ui-card-header">
+          <span class="ui-card-title">
+            <i data-lucide="lock" style="width: 15px; height: 15px; color: #10b981;"></i>
+            PRE-PARSE CUSTODY DIGEST
+          </span>
+          <span class="chip chip-pass" style="font-size: 9px;">SEALED</span>
+        </div>
+        <div class="ui-card-content">
+          <div class="meta-kv-list">
+            <div class="meta-kv-item">
+              <span class="meta-kv-label">SHA-256 Pre-Parse Hash:</span>
+              <span id="meta-sha256" class="meta-kv-value" style="font-size: 10px; color: #38bdf8;">e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</span>
+            </div>
+            <div class="meta-kv-item">
+              <span class="meta-kv-label">From:</span>
+              <span id="meta-from" class="meta-kv-value">N/A</span>
+            </div>
+            <div class="meta-kv-item">
+              <span class="meta-kv-label">Return-Path:</span>
+              <span id="meta-return-path" class="meta-kv-value">N/A</span>
+            </div>
+            <div class="meta-kv-item">
+              <span class="meta-kv-label">Subject:</span>
+              <span id="meta-subject" class="meta-kv-value">N/A</span>
+            </div>
+            <div class="meta-kv-item">
+              <span class="meta-kv-label">Message-ID:</span>
+              <span id="meta-msgid" class="meta-kv-value" style="font-size: 10px;">N/A</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- RIGHT COLUMN: Map & Tabbed Forensic Inspection System -->
+    <section style="display: flex; flex-direction: column; gap: 1.25rem;">
+      
+      <!-- Card: Keyless Multi-Hop Transit Map -->
+      <div class="ui-card">
+        <div class="ui-card-header">
+          <span class="ui-card-title">
+            <i data-lucide="globe" style="width: 15px; height: 15px; color: var(--primary);"></i>
+            CHRONOLOGICAL MTA TRANSIT PATH (KEYLESS ESRI DARK CANVAS)
+          </span>
+          <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <span id="map-hop-count" style="font-size: 11px; color: var(--muted-foreground);">0 Relays Traced</span>
+            <span class="chip chip-info">ESRI ZERO-KEY</span>
+          </div>
+        </div>
+        <div class="ui-card-content" style="padding: 0;">
+          <div id="leaflet-map"></div>
+        </div>
+      </div>
+
+      <!-- Card: Multi-Tab Forensic Details -->
+      <div class="ui-card" style="flex: 1;">
+        <div class="ui-card-header" style="border-bottom: none; padding-bottom: 0;">
+          <div class="tabs-pill-container" role="tablist">
+            <button class="tab-pill-btn active" data-tab="tab-hops" role="tab">MTA Hops (<span id="tab-cnt-hops">0</span>)</button>
+            <button class="tab-pill-btn" data-tab="tab-protocols" role="tab">Authentication Protocols</button>
+            <button class="tab-pill-btn" data-tab="tab-deobf" role="tab">Adversarial Deobfuscation</button>
+            <button class="tab-pill-btn" data-tab="tab-quishing" role="tab">Quishing / Optical QR</button>
+            <button class="tab-pill-btn" data-tab="tab-findings" role="tab">Forensic Findings (<span id="tab-cnt-findings">0</span>)</button>
+            <button class="tab-pill-btn" data-tab="tab-custody" role="tab">Section 63 Audit Ledger</button>
+            <button class="tab-pill-btn" data-tab="tab-raw" role="tab">Raw Headers</button>
+          </div>
+        </div>
+
+        <div class="ui-card-content" style="padding-top: 0.5rem;">
+          
+          <!-- Tab 1: MTA Hops -->
+          <div id="tab-hops" class="tab-content-panel active">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Hop #</th>
+                  <th>From MTA</th>
+                  <th>By MTA</th>
+                  <th>Relay IP</th>
+                  <th>Country / City</th>
+                  <th>ASN & Organization</th>
+                  <th>Latency</th>
+                </tr>
+              </thead>
+              <tbody id="hops-tbody">
+                <tr><td colspan="7" style="text-align: center; color: var(--muted-foreground);">No hops analyzed yet.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Tab 2: Protocols -->
+          <div id="tab-protocols" class="tab-content-panel">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; margin-bottom: 1rem;">
+              <div style="background: var(--muted); padding: 0.75rem; border-radius: var(--radius);">
+                <div style="font-size: 10.5px; color: var(--muted-foreground);">SPF (RFC 7208)</div>
+                <div id="proto-spf-val" style="font-size: 15px; font-weight: 700; margin-top: 0.2rem;">NONE</div>
+              </div>
+              <div style="background: var(--muted); padding: 0.75rem; border-radius: var(--radius);">
+                <div style="font-size: 10.5px; color: var(--muted-foreground);">DKIM (RFC 6376)</div>
+                <div id="proto-dkim-val" style="font-size: 15px; font-weight: 700; margin-top: 0.2rem;">NONE</div>
+              </div>
+              <div style="background: var(--muted); padding: 0.75rem; border-radius: var(--radius);">
+                <div style="font-size: 10.5px; color: var(--muted-foreground);">DMARC (RFC 7489)</div>
+                <div id="proto-dmarc-val" style="font-size: 15px; font-weight: 700; margin-top: 0.2rem;">NONE</div>
+              </div>
+              <div style="background: var(--muted); padding: 0.75rem; border-radius: var(--radius);">
+                <div style="font-size: 10.5px; color: var(--muted-foreground);">DOMAIN ALIGNMENT</div>
+                <div id="proto-align-val" style="font-size: 15px; font-weight: 700; margin-top: 0.2rem;">ALIGNED</div>
+              </div>
+            </div>
+            <div id="protocol-findings-list" style="display: flex; flex-direction: column; gap: 0.4rem;"></div>
+          </div>
+
+          <!-- Tab 3: Deobfuscation -->
+          <div id="tab-deobf" class="tab-content-panel">
+            <div style="margin-bottom: 0.8rem; font-size: 12px; color: var(--muted-foreground);">
+              Multi-pass inspection unmasking invisible zero-width Unicode injection and Cyrillic/Greek homoglyphs.
+            </div>
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Evasion Category</th>
+                  <th>Count</th>
+                  <th>Status</th>
+                  <th>Adversarial Impact</th>
+                </tr>
+              </thead>
+              <tbody id="deobf-tbody">
+                <tr><td colspan="4" style="text-align: center; color: var(--muted-foreground);">No deobfuscation events logged.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Tab 4: Quishing -->
+          <div id="tab-quishing" class="tab-content-panel">
+            <div id="quishing-container">
+              <div style="text-align: center; color: var(--muted-foreground); padding: 1.5rem;">
+                No QR code payloads or Quishing directives detected in this message.
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 5: Findings -->
+          <div id="tab-findings" class="tab-content-panel">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Code</th>
+                  <th>Severity</th>
+                  <th>Category</th>
+                  <th>Finding Description</th>
+                  <th>MITRE ATT&CK</th>
+                </tr>
+              </thead>
+              <tbody id="findings-tbody">
+                <tr><td colspan="5" style="text-align: center; color: var(--muted-foreground);">No adversarial findings flagged.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Tab 6: Custody -->
+          <div id="tab-custody" class="tab-content-panel">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Seq</th>
+                  <th>Action</th>
+                  <th>Operator</th>
+                  <th>Timestamp (UTC)</th>
+                  <th>Event Hash (Merkle Link)</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody id="custody-tbody">
+                <tr><td colspan="6" style="text-align: center; color: var(--muted-foreground);">Custody ledger is loading...</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Tab 7: Raw -->
+          <div id="tab-raw" class="tab-content-panel">
+            <pre id="raw-headers-pre" style="background: #030712; padding: 1rem; border-radius: var(--radius); font-family: monospace; font-size: 11px; max-height: 320px; overflow: auto; color: #cbd5e1; white-space: pre-wrap;"></pre>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- 4. Section 63 BSA 2023 Certificate Modal -->
+  <div id="cert-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-cert-title">
+    <div class="modal-card">
+      <div class="ui-card-header">
+        <span class="ui-card-title" id="modal-cert-title">
+          <i data-lucide="award" style="color: #38bdf8; width: 16px; height: 16px;"></i>
+          SECTION 63 BHARATIYA SAKSHYA ADHINIYAM (BSA) 2023 CERTIFICATE
+        </span>
+        <button id="btn-close-cert-modal" class="btn btn-outline" style="border: none; padding: 0.2rem 0.5rem;">
+          <kbd style="font-size: 10px; background: var(--muted); padding: 2px 5px; border-radius: 3px;">ESC</kbd>
+        </button>
+      </div>
+      <div id="cert-body-content" class="modal-body">
+        Generating certificate...
+      </div>
+      <div class="modal-footer">
+        <button id="btn-copy-cert" class="btn btn-secondary">
+          <i data-lucide="copy" style="width: 14px; height: 14px;"></i>
+          Copy Certificate
+        </button>
+        <button id="btn-download-pdf-modal" class="btn btn-primary">
+          <i data-lucide="download" style="width: 14px; height: 14px;"></i>
+          Download Sealed PDF Dossier
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
