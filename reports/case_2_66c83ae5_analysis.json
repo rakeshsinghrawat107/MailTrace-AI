@@ -1,0 +1,176 @@
+{
+  "case_id": "66c83ae5",
+  "filename": "0d969dee512d027156bb750d68dcc995.eml",
+  "evidence_sha256": "ee2127540784d8db523fd223568030e5bade09aaa77aacd02b545956bceaa0ac",
+  "file_size_bytes": 9066,
+  "headers": {
+    "From": "\"All-Yours.Net\" <yvvsj@zol.co.zw>",
+    "To": "Recipients <dhl@customerservice.com>",
+    "Subject": "Earthcam bd OTHER",
+    "Date": "Tue, 17 Apr 2007 22:32:09 -0400",
+    "MIME-Version": "1.0",
+    "Content-Type": "multipart/related; type=\"multipart/alternative\"; boundary=\"----=_NextPart_000_000E_01C78140.3C8E0960\"",
+    "X-Priority": "3",
+    "X-MSMail-Priority": "Normal",
+    "X-Mailer": "Microsoft Outlook Express 6.00.2800.1106",
+    "X-MimeOLE": "Produced By Microsoft MimeOLE V6.00.2800.1106",
+    "X-Miltered": "at mailchk-m05 with ID 4625833C.000 by Joe's j-chkmail (http://j-chkmail.ensmp.fr)!",
+    "X-Virus-Scanned": "ClamAV version 0.90.2, clamav-milter version 0.90.2 on localhost",
+    "X-Virus-Status": "Clean",
+    "X-UUID": "2bea7e1a-0c24-4e99-a764-8ac95ba43fc3",
+    "Status": "O",
+    "Content-Length": "8317",
+    "Lines": "157",
+    "Return-Path": "",
+    "Reply-To": "",
+    "Message-ID": ""
+  },
+  "identities": {
+    "from_name": "All-Yours.Net",
+    "from_addr": "yvvsj@zol.co.zw",
+    "from_domain": "zol.co.zw",
+    "return_addr": "",
+    "return_domain": "",
+    "reply_addr": "",
+    "reply_domain": ""
+  },
+  "anomalies": {
+    "return_path_mismatch": false,
+    "reply_to_mismatch": false,
+    "display_name_spoof": false,
+    "finding_id": null
+  },
+  "hops": [],
+  "originating_ip": null,
+  "protocols": {
+    "spf": {
+      "status": "none",
+      "domain": "",
+      "aligned": false
+    },
+    "dkim": {
+      "status": "none",
+      "domain": "",
+      "aligned": false
+    },
+    "dmarc": {
+      "status": "neutral",
+      "policy": "none",
+      "aligned": false
+    },
+    "overall_authentication_pass": false,
+    "findings": [
+      "[F-005: DMARC Policy Rejection] Message fails organizational alignment"
+    ]
+  },
+  "deobfuscation": {
+    "original_text": "Roll hall fame browns stadium jacobs field.\nGambling cam las vegas.\nEarthcam bd, other cameras might like chicago.\nAngeles atop yamashiro restaurant mountain palace. Campus beautiful michigan locate sears.\nFame browns stadium jacobs, field lake erie.\nChicago located at museum natural history camera, offers. New york hotel casino excitement tropicana, boulevard los? Museum natural history, camera offers many skyline. Landscape, bring images sign century city la hotspots. States gambling cam las vegas.\nRock and roll, hall fame browns stadium jacobs field.\nWithin hollywood hills, sweeps across.\nCity la hotspots, more location most?\nNestled deep, within hollywood hills, sweeps across landscape.\nStadium jacobs field, lake erie downtown this powered by! Include famous mgm lion, new york hotel casino excitement. Beautiful, michigan locate sears tallest building united states gambling.\nPalace is nestled deep within hollywood hills sweeps.\nMgm, lion new york hotel casino excitement tropicana!\nIn ec, weather detailed forecast the top of!\nVegas pans zooms to include famous! States gambling cam las vegas.\nYork hotel, casino excitement tropicana boulevard, los angeles atop? Public square camvistas, sweeping, views capture.\n",
+    "normalized_text": "Roll hall fame browns stadium jacobs field.\nGambling cam las vegas.\nEarthcam bd, other cameras might like chicago.\nAngeles atop yamashiro restaurant mountain palace. Campus beautiful michigan locate sears.\nFame browns stadium jacobs, field lake erie.\nChicago located at museum natural history camera, offers. New york hotel casino excitement tropicana, boulevard los? Museum natural history, camera offers many skyline. Landscape, bring images sign century city la hotspots. States gambling cam las vegas.\nRock and roll, hall fame browns stadium jacobs field.\nWithin hollywood hills, sweeps across.\nCity la hotspots, more location most?\nNestled deep, within hollywood hills, sweeps across landscape.\nStadium jacobs field, lake erie downtown this powered by! Include famous mgm lion, new york hotel casino excitement. Beautiful, michigan locate sears tallest building united states gambling.\nPalace is nestled deep within hollywood hills sweeps.\nMgm, lion new york hotel casino excitement tropicana!\nIn ec, weather detailed forecast the top of!\nVegas pans zooms to include famous! States gambling cam las vegas.\nYork hotel, casino excitement tropicana boulevard, los angeles atop? Public square camvistas, sweeping, views capture.\n",
+    "zero_width_count": 0,
+    "homoglyphs_detected": [],
+    "domain_lookalike": {
+      "original_domain": "zol.co.zw",
+      "is_punycode": false,
+      "decoded_domain": "zol.co.zw",
+      "is_lookalike": true,
+      "closest_brand": "gov.in",
+      "edit_distance": 2,
+      "substitutions": []
+    },
+    "evasion_detected": true,
+    "finding_id": "[F-001: Adversarial Evasion]"
+  },
+  "quishing": {
+    "is_quishing_detected": false,
+    "trigger_phrases": [],
+    "qr_payloads": [],
+    "finding_id": null
+  },
+  "nlp_heuristics": {
+    "urgency_detected": false,
+    "urgency_markers": [],
+    "financial_detected": false,
+    "financial_markers": [],
+    "credential_theft_detected": false,
+    "credential_markers": [],
+    "urgency_score": 0.0,
+    "financial_score": 0.0,
+    "credential_score": 0.0
+  },
+  "threat_scoring": {
+    "vector_32d": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "fraud_score": 74.2,
+    "risk_tier": "MALICIOUS",
+    "risk_color": "#ea580c",
+    "findings": [
+      {
+        "id": "F-001",
+        "category": "Adversarial Evasion",
+        "description": "Detected 0 zero-width characters and 0 homoglyphs in payload."
+      },
+      {
+        "id": "F-003",
+        "category": "Protocol Authentication",
+        "description": "[F-005: DMARC Policy Rejection] Message fails organizational alignment"
+      }
+    ],
+    "metrics": {
+      "authentication_risk": 100.0,
+      "header_anomaly_risk": 0.0,
+      "obfuscation_risk": 25.0,
+      "nlp_manipulation_risk": 0.0,
+      "quishing_risk": 0.0,
+      "infrastructure_risk": 0.0
+    }
+  },
+  "iocs": [
+    {
+      "type": "Domain",
+      "value": "zol.co.zw",
+      "risk": "High",
+      "category": "Sender Domain",
+      "context": "Lookalike: gov.in"
+    },
+    {
+      "type": "SHA-256",
+      "value": "ee2127540784d8db523fd223568030e5bade09aaa77aacd02b545956bceaa0ac",
+      "risk": "Informational",
+      "category": "Evidence Digest",
+      "context": "FIPS 180-4 Ingestion Hash"
+    }
+  ],
+  "body_preview": "Roll hall fame browns stadium jacobs field.\nGambling cam las vegas.\nEarthcam bd, other cameras might like chicago.\nAngeles atop yamashiro restaurant mountain palace. Campus beautiful michigan locate sears.\nFame browns stadium jacobs, field lake erie.\nChicago located at museum natural history camera, offers. New york hotel casino excitement tropicana, boulevard los? Museum natural history, camera offers many skyline. Landscape, bring images sign century city la hotspots. States gambling cam las vegas.\nRock and roll, hall fame browns stadium jacobs field.\nWithin hollywood hills, sweeps across.\nCity la hotspots, more location most?\nNestled deep, within hollywood hills, sweeps across landscape.\nStadium jacobs field, lake erie downtown this powered by! Include famous mgm lion, new york hotel casino excitement. Beautiful, michigan locate sears tallest building united states gambling.\nPalace is nestled deep within hollywood hills sweeps.\nMgm, lion new york hotel casino excitement tropicana!\nIn ec, weather detailed forecast the top of!\nVegas pans zooms to include famous! States gambling cam las vegas.\nYork hotel, casino excitement tropicana boulevard, los angeles atop? Public square camvistas, sweeping, views capture.\n"
+}

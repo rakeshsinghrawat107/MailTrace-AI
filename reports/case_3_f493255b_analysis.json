@@ -1,0 +1,168 @@
+{
+  "case_id": "f493255b",
+  "filename": "878872128d1a3c1224f7a5d0e9267f22.eml",
+  "evidence_sha256": "d4efb97452faafa95003206e988efe34667cf64d937f9165cc1480dc25439f4a",
+  "file_size_bytes": 2985,
+  "headers": {
+    "From": "timcowlishaw@gmail.com}attack.com",
+    "To": "susan.skarness@enron.com",
+    "Subject": "[Mhln] Sex can",
+    "Errors-To": "mhln-admin@mailman.eppg.com",
+    "X-BeenThere": "mhln@mailman.eppg.com",
+    "X-Mailman-Version": "2.0.8",
+    "Precedence": "bulk",
+    "List-Help": "<mailto:mhln-request@mailman.eppg.com?subject=help>",
+    "List-Post": "<mailto:mhln@mailman.eppg.com>",
+    "List-Subscribe": "<http://mailman.eppg.com/mailman/listinfo/mhln>,\t<mailto:mhln-request@mailman.eppg.com?subject=subscribe>",
+    "List-Id": "McGraw-Hill Learning Network <mhln.mailman.eppg.com>",
+    "List-Unsubscribe": "<http://mailman.eppg.com/mailman/listinfo/mhln>,\t<mailto:mhln-request@mailman.eppg.com?subject=unsubscribe>",
+    "List-Archive": "<http://mailman.eppg.com/pipermail/mhln/>",
+    "Date": "Fri, 06 Jul 2007 01:07:49 +0300",
+    "Return-Path": "",
+    "Reply-To": "",
+    "Message-ID": ""
+  },
+  "identities": {
+    "from_name": "",
+    "from_addr": "timcowlishaw@gmail.com}attack.com",
+    "from_domain": "gmail.com}attack.com",
+    "return_addr": "",
+    "return_domain": "",
+    "reply_addr": "",
+    "reply_domain": ""
+  },
+  "anomalies": {
+    "return_path_mismatch": false,
+    "reply_to_mismatch": false,
+    "display_name_spoof": false,
+    "finding_id": null
+  },
+  "hops": [],
+  "originating_ip": null,
+  "protocols": {
+    "spf": {
+      "status": "none",
+      "domain": "",
+      "aligned": false
+    },
+    "dkim": {
+      "status": "none",
+      "domain": "",
+      "aligned": false
+    },
+    "dmarc": {
+      "status": "neutral",
+      "policy": "none",
+      "aligned": false
+    },
+    "overall_authentication_pass": false,
+    "findings": [
+      "[F-005: DMARC Policy Rejection] Message fails organizational alignment"
+    ]
+  },
+  "deobfuscation": {
+    "original_text": "This is a multi-part message in MIME format.\n\n------=_NextPart_000_0000_D2BB191F.D0387C1B\nContent-Type: text/plain;\n    charset=\"iso-8859-1\"\nContent-Transfer-Encoding: 7bit\n\n     VIAGRA CIALIS    Sex can be one of the most enjoyable parts of your\nlife. It may strengthen your relationship with your partner.\n\n  If a relaxing moment turns into the right moment, will you be ready?\nYou can be with CIALIS.\n\n   BUY ONLINE @ ED'S PILL STORE    \n\n  \n------=_NextPart_000_0000_D2BB191F.D0387C1B\nContent-Type: text/html;\n    charset=\"iso-8859-1\"\nContent-Transfer-Encoding: quoted-printable\n\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">\n<HTML><HEAD>\n<META http-equiv=3DContent-Type content=3D\"text/html; =\ncharset=3Diso-8859-1\">\n<META content=3D\"MSHTML 6.00.2900.2912\" name=3D\"GENERATOR\">\n</HEAD>\n<BODY text=3D#000000 bgColor=3D#ffffff>\n\n<font size=3D\"3\" face=3D\"Times New Roman\"><p align=3D\"center\">\n<table cellspacing=3D\"1\" cellpadding=3D\"11\" width=3D\"600\" =\nborder=3D\"0\">\n    <tbody>\n        <tr>\n            <td><span class=3D\"subtextviagra\"><font face=3D\"Arial\" =\ncolor=3D\"#009900\" =\nsize=3D\"6\"><strong>VIAGRA</strong></font></span></td>\n            <td><span class=3D\"subtextcialis\"><font face=3D\"Arial\" =\ncolor=3D\"#ff6600\" =\nsize=3D\"6\"><strong>CIALIS</strong></font></span></td>\n        </tr>\n        <tr>\n            <td>\n            <p align=3D\"left\"><span class=3D\"subtextviagra\"><font =\nface=3D\"Arial\">Sex can be one of the most enjoyable parts of your life. =\nIt may strengthen ",
+    "normalized_text": "This is a multi-part message in MIME format.\n\n------=_NextPart_000_0000_D2BB191F.D0387C1B\nContent-Type: text/plain;\n    charset=\"iso-8859-1\"\nContent-Transfer-Encoding: 7bit\n\n     VIAGRA CIALIS    Sex can be one of the most enjoyable parts of your\nlife. It may strengthen your relationship with your partner.\n\n  If a relaxing moment turns into the right moment, will you be ready?\nYou can be with CIALIS.\n\n   BUY ONLINE @ ED'S PILL STORE    \n\n  \n------=_NextPart_000_0000_D2BB191F.D0387C1B\nContent-Type: text/html;\n    charset=\"iso-8859-1\"\nContent-Transfer-Encoding: quoted-printable\n\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">\n<HTML><HEAD>\n<META http-equiv=3DContent-Type content=3D\"text/html; =\ncharset=3Diso-8859-1\">\n<META content=3D\"MSHTML 6.00.2900.2912\" name=3D\"GENERATOR\">\n</HEAD>\n<BODY text=3D#000000 bgColor=3D#ffffff>\n\n<font size=3D\"3\" face=3D\"Times New Roman\"><p align=3D\"center\">\n<table cellspacing=3D\"1\" cellpadding=3D\"11\" width=3D\"600\" =\nborder=3D\"0\">\n    <tbody>\n        <tr>\n            <td><span class=3D\"subtextviagra\"><font face=3D\"Arial\" =\ncolor=3D\"#009900\" =\nsize=3D\"6\"><strong>VIAGRA</strong></font></span></td>\n            <td><span class=3D\"subtextcialis\"><font face=3D\"Arial\" =\ncolor=3D\"#ff6600\" =\nsize=3D\"6\"><strong>CIALIS</strong></font></span></td>\n        </tr>\n        <tr>\n            <td>\n            <p align=3D\"left\"><span class=3D\"subtextviagra\"><font =\nface=3D\"Arial\">Sex can be one of the most enjoyable parts of your life. =\nIt may strengthen ",
+    "zero_width_count": 0,
+    "homoglyphs_detected": [],
+    "domain_lookalike": {
+      "original_domain": "gmail.com}attack.com",
+      "is_punycode": false,
+      "decoded_domain": "gmail.com}attack.com",
+      "is_lookalike": false,
+      "closest_brand": null,
+      "edit_distance": null,
+      "substitutions": []
+    },
+    "evasion_detected": false,
+    "finding_id": null
+  },
+  "quishing": {
+    "is_quishing_detected": false,
+    "trigger_phrases": [],
+    "qr_payloads": [],
+    "finding_id": null
+  },
+  "nlp_heuristics": {
+    "urgency_detected": false,
+    "urgency_markers": [],
+    "financial_detected": false,
+    "financial_markers": [],
+    "credential_theft_detected": false,
+    "credential_markers": [],
+    "urgency_score": 0.0,
+    "financial_score": 0.0,
+    "credential_score": 0.0
+  },
+  "threat_scoring": {
+    "vector_32d": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "fraud_score": 25.0,
+    "risk_tier": "SUSPICIOUS",
+    "risk_color": "#eab308",
+    "findings": [
+      {
+        "id": "F-003",
+        "category": "Protocol Authentication",
+        "description": "[F-005: DMARC Policy Rejection] Message fails organizational alignment"
+      }
+    ],
+    "metrics": {
+      "authentication_risk": 100.0,
+      "header_anomaly_risk": 0.0,
+      "obfuscation_risk": 0.0,
+      "nlp_manipulation_risk": 0.0,
+      "quishing_risk": 0.0,
+      "infrastructure_risk": 0.0
+    }
+  },
+  "iocs": [
+    {
+      "type": "Domain",
+      "value": "gmail.com}attack.com",
+      "risk": "Low",
+      "category": "Sender Domain",
+      "context": "Domain authenticated"
+    },
+    {
+      "type": "SHA-256",
+      "value": "d4efb97452faafa95003206e988efe34667cf64d937f9165cc1480dc25439f4a",
+      "risk": "Informational",
+      "category": "Evidence Digest",
+      "context": "FIPS 180-4 Ingestion Hash"
+    }
+  ],
+  "body_preview": "This is a multi-part message in MIME format.\n\n------=_NextPart_000_0000_D2BB191F.D0387C1B\nContent-Type: text/plain;\n    charset=\"iso-8859-1\"\nContent-Transfer-Encoding: 7bit\n\n     VIAGRA CIALIS    Sex can be one of the most enjoyable parts of your\nlife. It may strengthen your relationship with your partner.\n\n  If a relaxing moment turns into the right moment, will you be ready?\nYou can be with CIALIS.\n\n   BUY ONLINE @ ED'S PILL STORE    \n\n  \n------=_NextPart_000_0000_D2BB191F.D0387C1B\nContent-Type: text/html;\n    charset=\"iso-8859-1\"\nContent-Transfer-Encoding: quoted-printable\n\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">\n<HTML><HEAD>\n<META http-equiv=3DContent-Type content=3D\"text/html; =\ncharset=3Diso-8859-1\">\n<META content=3D\"MSHTML 6.00.2900.2912\" name=3D\"GENERATOR\">\n</HEAD>\n<BODY text=3D#000000 bgColor=3D#ffffff>\n\n<font size=3D\"3\" face=3D\"Times New Roman\"><p align=3D\"center\">\n<table cellspacing=3D\"1\" cellpadding=3D\"11\" width=3D\"600\" =\nborder=3D\"0\">\n    <tbody>\n        <tr>\n            <td><span class=3D\"subtextviagra\"><font face=3D\"Arial\" =\ncolor=3D\"#009900\" =\nsize=3D\"6\"><strong>VIAGRA</strong></font></span></td>\n            <td><span class=3D\"subtextcialis\"><font face=3D\"Arial\" =\ncolor=3D\"#ff6600\" =\nsize=3D\"6\"><strong>CIALIS</strong></font></span></td>\n        </tr>\n        <tr>\n            <td>\n            <p align=3D\"left\"><span class=3D\"subtextviagra\"><font =\nface=3D\"Arial\">Sex can be one of the most enjoyable parts of your life. =\nIt may strengthen "
+}

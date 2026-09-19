@@ -1,0 +1,77 @@
+/* MailTrace AI - Cyber SOC Stylesheet */
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(6, 182, 212, 0.5);
+  }
+}
+
+.cyber-glow {
+  animation: pulseGlow 3s infinite ease-in-out;
+}
+
+/* Custom Cyber Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #06090e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #162032;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #223048;
+}
+
+/* Leaflet Map Cyber Theme Overrides */
+.leaflet-container {
+  background: #06090e !important;
+  font-family: inherit;
+}
+
+.leaflet-bar a {
+  background-color: #101826 !important;
+  color: #38bdf8 !important;
+  border-color: #162032 !important;
+}
+
+.leaflet-bar a:hover {
+  background-color: #162032 !important;
+  color: #ffffff !important;
+}
+
+.leaflet-popup-content-wrapper {
+  background: #0b111a !important;
+  color: #f1f5f9 !important;
+  border: 1px solid #223048;
+  border-radius: 8px !important;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+}
+
+.leaflet-popup-tip {
+  background: #0b111a !important;
+}
+
+/* Custom Marker Styling */
+.cyber-marker-pulse {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.marker-inner {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 8px currentColor;
+}
